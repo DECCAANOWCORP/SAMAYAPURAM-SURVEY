@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temple Survey Application - DECCAANOW CORP</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .question-container {
+      display: none;
+    }
+    .question-container.active {
+      display: block;
+    }
+    .logo {
+      height: 60px;
+      width: auto;
+    }
+    @media (max-width: 640px) {
+      .logo {
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <header class="bg-white shadow-md p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <img src="/1.png" alt="Left Logo" class="logo">
+      <img src="/2.png" alt="Middle Logo" class="logo">
+      <img src="/3.png" alt="Right Logo" class="logo">
+    </div>
+  </header>
+
+  <div class="container mx-auto p-4">
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+      <div class="flex border-b">
+        <button id="survey-tab" class="px-4 py-2 font-medium text-blue-600 border-b-2 border-blue-600">Survey Form</button>
+        <button id="dashboard-tab" class="px-4 py-2 font-medium text-gray-500">Dashboard</button>
+      </div>
+
+      <div id="survey-content" class="tab-content active mt-6">
+        <h2 class="text-2xl font-bold mb-4">Temple Survey Form</h2>
+        
+        <div class="mb-6">
+          <label class="block text-gray-700 font-medium mb-2">Select Survey Category</label>
+          <select id="survey-category" class="w-full p-2 border rounded-md">
+            <option value="">-- Select Category --</option>
+            <option value="devotees">Devotees (General Public)</option>
+            <option value="police">Police Officials (Crowd & Security Management)</option>
+            <option value="government">Government Officials / Temple Management</option>
+            <option value="traffic">Traffic & Parking Management</option>
+            <option value="annadhan">Annadhan (Free Food Distribution) Area</option>
+            <option value="tonsure">Tonsure Shed (Hair Offering Area)</option>
+            <option value="offering">Offering Area</option>
+          </select>
+        </div>
+
+        <form id="survey-form" class="mt-6">
+          <div id="devotees-questions" class="question-container">
+            <h3 class="text-xl font-semibold mb-4">Devotees (General Public)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">1. Name</label>
+                <input type="text" name="devotees-name" class="w-full p-2 border rounded-md">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">2. Age</label>
+                <input type="number" name="devotees-age" class="w-full p-2 border rounded-md">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">3. Gender</label>
+                <select name="devotees-gender" class="w-full p-2 border rounded-md">
+                  <option value="">-- Select --</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">4. Education Qualification</label>
+                <input type="text" name="devotees-education" class="w-full p-2 border rounded-md" placeholder="Enter education qualification">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">5. Demography</label>
+                <select name="devotees-demography" class="w-full p-2 border rounded-md">
+                  <option value="">-- Select --</option>
+                  <option value="Urban">Urban</option>
+                  <option value="Rural">Rural</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">6. Profession</label>
+                <input type="text" name="devotees-profession" class="w-full p-2 border rounded-md" placeholder="Enter profession">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">7. How frequently do you visit the temple?</label>
+                <select name="devotees-frequency" class="w-full p-2 border rounded-md">
+                  <option value="">-- Select --</option>
+                  <option value="Daily">Daily</option>
+                  <option value="Weekly">Weekly</option>
+                  <option value="Monthly">Monthly</option>
+                  <option value="Yearly">Yearly</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">8. Mode of Transport</label>
+                <input type="text" name="devotees-transport" class="w-full p-2 border rounded-md" placeholder="Enter mode of transport">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">9. How comfortable are you with using technology for temple services? (1-10 Scale)</label>
+                <input type="range" name="devotees-tech-comfort" min="1" max="10" class="w-full" oninput="this.nextElementSibling.value = this.value">
+                <output>5</output>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">10. Would you prefer a digital entry pass for faster access?</label>
+                <div class="flex space-x-4">
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="devotees-digital-pass" value="Yes" class="mr-2">
+                    Yes
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="devotees-digital-pass" value="No" class="mr-2">
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="police-questions" class="question-container">
+            <h3 class="text-xl font-semibold mb-4">Police Officials (Crowd & Security Management)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">1. Name</label>
+                <input type="text" name="police-name" class="w-full p-2 border rounded-md">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">2. Designation</label>
+                <input type="text" name="police-designation" class="w-full p-2 border rounded-md">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">3. Experience in handling temple crowd</label>
+                <input type="text" name="police-experience" class="w-full p-2 border rounded-md" placeholder="Enter years of experience">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">4. What are the main crowd management challenges you face?</label>
+                <textarea name="police-challenges" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">5. What are the peak times for crowd congestion?</label>
+                <textarea name="police-peak-times" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">6. How do you handle emergency situations in a crowded temple?</label>
+                <textarea name="police-emergency" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">7. What measures do you suggest for better traffic control?</label>
+                <textarea name="police-traffic-control" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">8. What type of security threats do you usually encounter?</label>
+                <textarea name="police-security-threats" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">9. Would you prefer digital surveillance for better monitoring?</label>
+                <div class="flex space-x-4">
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="police-digital-surveillance" value="Yes" class="mr-2">
+                    Yes
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="police-digital-surveillance" value="No" class="mr-2">
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="government-questions" class="question-container">
+            <h3 class="text-xl font-semibold mb-4">Government Officials / Temple Management</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">1. Name</label>
+                <input type="text" name="government-name" class="w-full p-2 border rounded-md">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">2. Designation</label>
+                <input type="text" name="government-designation" class="w-full p-2 border rounded-md">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">3. How do you track and manage the daily footfall?</label>
+                <textarea name="government-footfall" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">4. What are the biggest challenges in managing temple facilities?</label>
+                <textarea name="government-challenges" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">5. How much funding is allocated for temple security and crowd control?</label>
+                <textarea name="government-funding" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">6. Do you believe a barcode-based system can improve tracking?</label>
+                <div class="flex space-x-4">
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="government-barcode" value="Yes" class="mr-2">
+                    Yes
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="government-barcode" value="No" class="mr-2">
+                    No
+                  </label>
+                </div>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">7. How often do you conduct surveys to understand temple visitors' needs?</label>
+                <input type="text" name="government-surveys" class="w-full p-2 border rounded-md" placeholder="Enter frequency">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">8. How do you ensure sanitation and hygiene in the temple premises?</label>
+                <textarea name="government-sanitation" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">9. Do you think smart ticketing can reduce congestion?</label>
+                <div class="flex space-x-4">
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="government-smart-ticketing" value="Yes" class="mr-2">
+                    Yes
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="government-smart-ticketing" value="No" class="mr-2">
+                    No
+                  </label>
+                </div>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">10. What are the temple's policies for emergency crowd evacuation?</label>
+                <textarea name="government-evacuation" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div id="traffic-questions" class="question-container">
+            <h3 class="text-xl font-semibold mb-4">Traffic & Parking Management</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">1. Name</label>
+                <input type="text" name="traffic-name" class="w-full p-2 border rounded-md">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">2. Designation</label>
+                <input type="text" name="traffic-designation" class="w-full p-2 border rounded-md">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">3. How many vehicles visit the temple daily?</label>
+                <input type="number" name="traffic-vehicles" class="w-full p-2 border rounded-md" placeholder="Enter approximate number">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">4. What are the major parking challenges faced?</label>
+                <textarea name="traffic-challenges" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">5. What is the average waiting time for parking?</label>
+                <input type="text" name="traffic-waiting-time" class="w-full p-2 border rounded-md" placeholder="Enter waiting time">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">6. What additional parking facilities are required?</label>
+                <textarea name="traffic-additional-facilities" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">7. Do you think a pre-booking parking system would help?</label>
+                <div class="flex space-x-4">
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="traffic-pre-booking" value="Yes" class="mr-2">
+                    Yes
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="traffic-pre-booking" value="No" class="mr-2">
+                    No
+                  </label>
+                </div>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">8. Are there any security concerns regarding parked vehicles?</label>
+                <textarea name="traffic-security-concerns" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">9. How can pedestrian walkways be improved near parking areas?</label>
+                <textarea name="traffic-pedestrian-walkways" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">10. Would a digital parking token system help streamline parking?</label>
+                <div class="flex space-x-4">
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="traffic-digital-token" value="Yes" class="mr-2">
+                    Yes
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="traffic-digital-token" value="No" class="mr-2">
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="annadhan-questions" class="question-container">
+            <h3 class="text-xl font-semibold mb-4">Annadhan (Free Food Distribution) Area</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">1. Name</label>
+                <input type="text" name="annadhan-name" class="w-full p-2 border rounded-md">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">2. Designation</label>
+                <input type="text" name="annadhan-designation" class="w-full p-2 border rounded-md">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">3. How many devotees are served food daily?</label>
+                <input type="number" name="annadhan-devotees" class="w-full p-2 border rounded-md" placeholder="Enter approximate number">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">4. What are the peak rush hours for Annadhan?</label>
+                <textarea name="annadhan-peak-hours" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">5. How is food quality and hygiene maintained?</label>
+                <textarea name="annadhan-hygiene" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">6. What are the major challenges in crowd management during food distribution?</label>
+                <textarea name="annadhan-challenges" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">7. Would a token-based food distribution system help?</label>
+                <div class="flex space-x-4">
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="annadhan-token-system" value="Yes" class="mr-2">
+                    Yes
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="annadhan-token-system" value="No" class="mr-2">
+                    No
+                  </label>
+                </div>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">8. How can food wastage be minimized?</label>
+                <textarea name="annadhan-food-wastage" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">9. Do you think additional seating capacity is required?</label>
+                <div class="flex space-x-4">
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="annadhan-seating-capacity" value="Yes" class="mr-2">
+                    Yes
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="annadhan-seating-capacity" value="No" class="mr-2">
+                    No
+                  </label>
+                </div>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">10. How can technology improve the food distribution process?</label>
+                <textarea name="annadhan-technology" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div id="tonsure-questions" class="question-container">
+            <h3 class="text-xl font-semibold mb-4">Tonsure Shed (Hair Offering Area)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">1. Name</label>
+                <input type="text" name="tonsure-name" class="w-full p-2 border rounded-md">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">2. Designation</label>
+                <input type="text" name="tonsure-designation" class="w-full p-2 border rounded-md">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">3. How many devotees visit the tonsure shed daily?</label>
+                <input type="number" name="tonsure-devotees" class="w-full p-2 border rounded-md" placeholder="Enter approximate number">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">4. What are the peak rush hours for hair offerings?</label>
+                <textarea name="tonsure-peak-hours" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">5. How is hygiene maintained in the tonsure area?</label>
+                <textarea name="tonsure-hygiene" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">6. Are there enough barbers and staff available?</label>
+                <div class="flex space-x-4">
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="tonsure-staff" value="Yes" class="mr-2">
+                    Yes
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="tonsure-staff" value="No" class="mr-2">
+                    No
+                  </label>
+                </div>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">7. Do you think a token-based tonsure appointment system would help?</label>
+                <div class="flex space-x-4">
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="tonsure-token-system" value="Yes" class="mr-2">
+                    Yes
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="tonsure-token-system" value="No" class="mr-2">
+                    No
+                  </label>
+                </div>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">8. What are the most common challenges in managing the tonsure shed?</label>
+                <textarea name="tonsure-challenges" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">9. How can hair waste be managed more effectively?</label>
+                <textarea name="tonsure-hair-waste" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">10. Would devotees prefer an online booking system for tonsure services?</label>
+                <div class="flex space-x-4">
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="tonsure-online-booking" value="Yes" class="mr-2">
+                    Yes
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="tonsure-online-booking" value="No" class="mr-2">
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="offering-questions" class="question-container">
+            <h3 class="text-xl font-semibold mb-4">Offering Area (Saree, Salt, Paddy, Livestock, Plants, Others)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">1. Name</label>
+                <input type="text" name="offering-name" class="w-full p-2 border rounded-md">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">2. Designation</label>
+                <input type="text" name="offering-designation" class="w-full p-2 border rounded-md">
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">3. What are the most common offerings made by devotees?</label>
+                <textarea name="offering-common" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">4. How are offerings recorded and managed?</label>
+                <textarea name="offering-recording" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">5. Are there proper storage facilities for different types of offerings?</label>
+                <div class="flex space-x-4">
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="offering-storage" value="Yes" class="mr-2">
+                    Yes
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="offering-storage" value="No" class="mr-2">
+                    No
+                  </label>
+                </div>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">6. How is livestock (cows/goats) handled after being donated?</label>
+                <textarea name="offering-livestock" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">7. What challenges are faced in storing and distributing sarees, paddy, and salt?</label>
+                <textarea name="offering-challenges" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">8. Do you think an RFID tracking system for offerings would help?</label>
+                <div class="flex space-x-4">
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="offering-rfid" value="Yes" class="mr-2">
+                    Yes
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="offering-rfid" value="No" class="mr-2">
+                    No
+                  </label>
+                </div>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">9. How can devotees track the utilization of their offerings?</label>
+                <textarea name="offering-tracking" class="w-full p-2 border rounded-md" rows="3"></textarea>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">10. Would an online donation and tracking system encourage more people to offer?</label>
+                <div class="flex space-x-4">
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="offering-online-system" value="Yes" class="mr-2">
+                    Yes
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="radio" name="offering-online-system" value="No" class="mr-2">
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex justify-end">
+            <button type="button" id="submit-survey" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Submit Survey</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="dashboard-content" class="tab-content mt-6">
+        <h2 class="text-2xl font-bold mb-4">Survey Dashboard</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold mb-4">Survey Statistics</h3>
+            <div class="space-y-4">
+              <div class="flex justify-between items-center border-b pb-2">
+                <span class="font-medium">Total Responses:</span>
+                <span id="total-responses" class="text-2xl font-bold text-blue-600">0</span>
+              </div>
+              <div id="category-stats" class="space-y-2">
+                <!-- Category stats will be inserted here -->
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold mb-4">Recent Submissions</h3>
+            <div id="recent-submissions" class="space-y-3">
+              <!-- Recent submissions will be inserted here -->
+              <p class="text-gray-500 italic">No submissions yet</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <h3 class="text-xl font-semibold mb-4">All Responses</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
+                </tr>
+              </thead>
+              <tbody id="responses-table" class="bg-white divide-y divide-gray-200">
+                <!-- Table rows will be inserted here -->
+                <tr>
+                  <td colspan="4" class="px-6 py-4 text-center text-gray-500 italic">No data available</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div class="flex justify-between">
+          <button id="download-excel" class="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">Download Excel</button>
+          <button id="clear-data" class="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">Clear All Data</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-gray-800 text-white p-4 mt-8">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2025 DECCAANOW CORP. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize localStorage if not exists
+    if (!localStorage.getItem('surveyData')) {
+      localStorage.setItem('surveyData', JSON.stringify([]));
+    }
+
+    // Tab switching
+    document.getElementById('survey-tab').addEventListener('click', function() {
+      document.getElementById('survey-content').classList.add('active');
+      document.getElementById('dashboard-content').classList.remove('active');
+      document.getElementById('survey-tab').classList.add('text-blue-600', 'border-blue-600');
+      document.getElementById('survey-tab').classList.remove('text-gray-500');
+      document.getElementById('dashboard-tab').classList.add('text-gray-500');
+      document.getElementById('dashboard-tab').classList.remove('text-blue-600', 'border-blue-600');
+    });
+
+    document.getElementById('dashboard-tab').addEventListener('click', function() {
+      document.getElementById('dashboard-content').classList.add('active');
+      document.getElementById('survey-content').classList.remove('active');
+      document.getElementById('dashboard-tab').classList.add('text-blue-600', 'border-blue-600');
+      document.getElementById('dashboard-tab').classList.remove('text-gray-500');
+      document.getElementById('survey-tab').classList.add('text-gray-500');
+      document.getElementById('survey-tab').classList.remove('text-blue-600', 'border-blue-600');
+      updateDashboard();
+    });
+
+    // Survey category selection
+    document.getElementById('survey-category').addEventListener('change', function() {
+      const category = this.value;
+      document.querySelectorAll('.question-container').forEach(container => {
+        container.classList.remove('active');
+      });
+      if (category) {
+        document.getElementById(`${category}-questions`).classList.add('active');
+      }
+    });
+
+    // Submit survey
+    document.getElementById('submit-survey').addEventListener('click', function() {
+      const category = document.getElementById('survey-category').value;
+      if (!category) {
+        alert('Please select a survey category');
+        return;
+      }
+
+      const form = document.getElementById('survey-form');
+      const formData = new FormData(form);
+      const data = {};
+      
+      for (let [key, value] of formData.entries()) {
+        data[key] = value;
+      }
+      
+      data.category = category;
+      data.timestamp = new Date().toISOString();
+      
+      // Save to localStorage
+      const surveyData = JSON.parse(localStorage.getItem('surveyData'));
+      surveyData.push(data);
+      localStorage.setItem('surveyData', JSON.stringify(surveyData));
+      
+      // Reset form
+      form.reset();
+      document.querySelectorAll('.question-container').forEach(container => {
+        container.classList.remove('active');
+      });
+      document.getElementById('survey-category').value = '';
+      
+      alert('Survey submitted successfully!');
+    });
+
+    // Download Excel
+    document.getElementById('download-excel').addEventListener('click', function() {
+      const surveyData = JSON.parse(localStorage.getItem('surveyData'));
+      if (surveyData.length === 0) {
+        alert('No data to download');
+        return;
+      }
+      
+      // Convert to worksheet
+      const worksheet = XLSX.utils.json_to_sheet(surveyData);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Survey Data');
+      
+      // Generate Excel file
+      XLSX.writeFile(workbook, 'temple_survey_data.xlsx');
+    });
+
+    // Clear data
+    document.getElementById('clear-data').addEventListener('click', function() {
+      if (confirm('Are you sure you want to clear all survey data? This action cannot be undone.')) {
+        localStorage.setItem('surveyData', JSON.stringify([]));
+        updateDashboard();
+        alert('All data has been cleared');
+      }
+    });
+
+    // Update dashboard
+    function updateDashboard() {
+      const surveyData = JSON.parse(localStorage.getItem('surveyData'));
+      
+      // Update total responses
+      document.getElementById('total-responses').textContent = surveyData.length;
+      
+      // Update category stats
+      const categoryStats = document.getElementById('category-stats');
+      categoryStats.innerHTML = '';
+      
+      const categoryCounts = {};
+      surveyData.forEach(data => {
+        categoryCounts[data.category] = (categoryCounts[data.category] || 0) + 1;
+      });
+      
+      const categoryLabels = {
+        'devotees': 'Devotees',
+        'police': 'Police Officials',
+        'government': 'Government Officials',
+        'traffic': 'Traffic Management',
+        'annadhan': 'Annadhan Area',
+        'tonsure': 'Tonsure Shed',
+        'offering': 'Offering Area'
+      };
+      
+      for (const category in categoryCounts) {
+        const div = document.createElement('div');
+        div.className = 'flex justify-between items-center';
+        div.innerHTML = `
+          <span>${categoryLabels[category] || category}:</span>
+          <span class="font-semibold">${categoryCounts[category]}</span>
+        `;
+        categoryStats.appendChild(div);
+      }
+      
+      // Update recent submissions
+      const recentSubmissions = document.getElementById('recent-submissions');
+      recentSubmissions.innerHTML = '';
+      
+      if (surveyData.length === 0) {
+        recentSubmissions.innerHTML = '<p class="text-gray-500 italic">No submissions yet</p>';
+      } else {
+        const recent = surveyData.slice(-5).reverse(); // Get last 5 submissions
+        
+        recent.forEach(submission => {
+          const div = document.createElement('div');
+          div.className = 'p-3 border rounded-md';
+          
+          const categoryLabel = categoryLabels[submission.category] || submission.category;
+          const name = submission[`${submission.category}-name`] || 'Anonymous';
+          const date = new Date(submission.timestamp).toLocaleString();
+          
+          div.innerHTML = `
+            <div class="flex justify-between">
+              <span class="font-semibold">${categoryLabel}</span>
+              <span class="text-sm text-gray-500">${date}</span>
+            </div>
+            <div>${name}</div>
+          `;
+          
+          recentSubmissions.appendChild(div);
+        });
+      }
+      
+      // Update responses table
+      const responsesTable = document.getElementById('responses-table');
+      responsesTable.innerHTML = '';
+      
+      if (surveyData.length === 0) {
+        responsesTable.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-gray-500 italic">No data available</td></tr>';
+      } else {
+        surveyData.forEach((submission, index) => {
+          const tr = document.createElement('tr');
+          
+          const categoryLabel = categoryLabels[submission.category] || submission.category;
+          const name = submission[`${submission.category}-name`] || 'Anonymous';
+          const date = new Date(submission.timestamp).toLocaleString();
+          
+          tr.innerHTML = `
+            <td class="px-6 py-4 whitespace-nowrap">${categoryLabel}</td>
+            <td class="px-6 py-4 whitespace-nowrap">${name}</td>
+            <td class="px-6 py-4 whitespace-nowrap">${date}</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <button class="text-blue-600 hover:text-blue-800 view-details" data-index="${index}">View Details</button>
+            </td>
+          `;
+          
+          responsesTable.appendChild(tr);
+        });
+        
+        // Add event listeners to view details buttons
+        document.querySelectorAll('.view-details').forEach(button => {
+          button.addEventListener('click', function() {
+            const index = this.getAttribute('data-index');
+            const submission = surveyData[index];
+            
+            let detailsHTML = '<div class="space-y-2">';
+            
+            for (const key in submission) {
+              if (key !== 'category' && key !== 'timestamp') {
+                detailsHTML += `<div><strong>${key}:</strong> ${submission[key]}</div>`;
+              }
+            }
+            
+            detailsHTML += '</div>';
+            
+            alert('Submission Details:\n\n' + Object.entries(submission)
+              .filter(([key]) => key !== 'category' && key !== 'timestamp')
+              .map(([key, value]) => `${key}: ${value}`)
+              .join('\n'));
+          });
+        });
+      }
+    }
+
+    // Set expiration for localStorage data (24 hours)
+    function checkDataExpiration() {
+      const surveyData = JSON.parse(localStorage.getItem('surveyData') || '[]');
+      const now = new Date().getTime();
+      
+      // Filter out data older than 24 hours
+      const filteredData = surveyData.filter(data => {
+        const timestamp = new Date(data.timestamp).getTime();
+        return (now - timestamp) < (24 * 60 * 60 * 1000); // 24 hours in milliseconds
+      });
+      
+      localStorage.setItem('surveyData', JSON.stringify(filteredData));
+    }
+    
+    // Check expiration on load and every hour
+    checkDataExpiration();
+    setInterval(checkDataExpiration, 60 * 60 * 1000); // Check every hour
+  </script>
+</body>
+</html>
+
